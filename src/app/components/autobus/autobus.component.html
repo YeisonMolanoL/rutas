@@ -1,0 +1,341 @@
+<div>
+  <app-header [titulo]="titulo"></app-header>
+  
+</div>
+<br /><br />
+<div class="p-grid principal">
+  <div class="p-col-8">
+    <app-slider
+      [autobuses]="autobuses"
+      *ngIf="autobuses.length > 0"
+      class=""
+    ></app-slider>
+  </div>
+  <div class="p-col-4" style="background-color: coral;">
+    <div [ngSwitch]="formularios" *ngIf="isAdmin" class="p-mb-6">
+      <div *ngSwitchCase="''">
+        <div>
+          <button
+            pButton
+            label="Nuevo Autobus"
+            type="button"
+            (click)="elegirFormulario('autobus')"
+          ></button>
+          <button
+            pButton
+            label="Nueva Compañia"
+            type="button"
+            (click)="elegirFormulario('compania')"
+            class="p-ml-6"
+          ></button>
+        </div>
+        <div>
+          <button
+            class="p-mt-2"
+            pButton
+            label="Nuevo Forma Juridica"
+            type="button"
+            (click)="elegirFormulario('formaJuridica')"
+          ></button>
+        </div>
+      </div>
+      <div *ngSwitchCase="'formaJuridica'">
+        <form [formGroup]="formNewFormaJuridica" action="">
+          <input
+            type="text"
+            class="form-control p-mb-3"
+            maxlength="30"
+            formControlName="nombreFormaJuridica"
+            placeholder="Nombre Forma Juridica"
+            pInputText
+          />
+          <div>
+            <button
+              pButton
+              type="button"
+              class="p-button-text p-button-rounded p-mr-4"
+              icon="pi pi-times"
+              (click)="elegirFormulario('')"
+            ></button>
+            <p-confirmPopup></p-confirmPopup>
+            <button
+              name="uno"
+              class="p-shadow-4"
+              pButton
+              label="Guardar"
+              type="button"
+              (click)="newFormaJuridica($event)"
+            ></button>
+          </div>
+        </form>
+      </div>
+      <div *ngSwitchCase="'compania'">
+        <form [formGroup]="formNewCompaniaAutobus" action="">
+          <input
+            type="text"
+            class="form-control p-mr-3 p-mb-2"
+            maxlength="30"
+            formControlName="nombreCompania"
+            pKeyFilter="alpha"
+            placeholder="Nombre compañia"
+            pInputText
+          />
+          <input
+            type="text"
+            class="form-control p-ml-3 p-mb-2"
+            maxlength="30"
+            formControlName="telefono"
+            pKeyFilter="int"
+            placeholder="Telefono"
+            pInputText
+          />
+          <input
+            type="text"
+            class="form-control p-mr-3 p-mb-2"
+            maxlength="30"
+            formControlName="ciudadResidencia"
+            pKeyFilter="alpha"
+            placeholder="Ciudad residencia"
+            pInputText
+          />
+          <input
+            type="text"
+            class="form-control p-ml-3 p-mb-2"
+            maxlength="30"
+            formControlName="nit"
+            pKeyFilter="int"
+            placeholder="Nit"
+            pInputText
+          />
+          <input
+            type="text"
+            class="form-control p-mr-3 p-mb-2"
+            maxlength="30"
+            formControlName="actividad"
+            pKeyFilter="alpha"
+            placeholder="Actividad"
+            pInputText
+          />
+          <input
+            type="text"
+            class="form-control p-ml-3 p-mb-2"
+            maxlength="30"
+            formControlName="direccion"
+            placeholder="Dirección"
+            pInputText
+          />
+          <p-dropdown
+            placeholder="Seleccionar..."
+            formControlName="idFormaJuridica"
+            [options]="formasJuridicas"
+            optionLabel="nombreFormaJuridica"
+            class="p-mr-5"
+          ></p-dropdown>
+          <button
+            pButton
+            type="button"
+            class="p-button-text p-button-rounded p-mr-2"
+            icon="pi pi-times"
+            (click)="elegirFormulario('')"
+          ></button>
+          <button
+            class="p-shadow-4"
+            pButton
+            label="Guardar"
+            type="button"
+            (click)="newCompaniaAutobus()"
+          ></button>
+        </form>
+      </div>
+      <div *ngSwitchCase="'autobus'" class="p-inputtext-sm">
+        <form
+          [formGroup]="formNewAutobus"
+          action="post"
+          class="p-field p-fluid p-shadow-2 p-p-2"
+        >
+          <input
+            type="text"
+            class="form-control"
+            maxlength="30"
+            formControlName="idMiRuta"
+            pKeyFilter="int"
+            placeholder="Id Mi Ruta"
+            pInputText
+          />
+          <input
+            type="text"
+            class="form-control p-ml-6 p-mb-2"
+            maxlength="30"
+            formControlName="numero"
+            pKeyFilter="int"
+            placeholder="Numero Placa"
+            pInputText
+          />
+          <div class="p-d-flex">
+            <div class="p-mb-2 p-mr-5 p-ml-2">
+              <p-dropdown
+                placeholder="Inicial Placa"
+                formControlName="idInicialPlaca"
+                [options]="inicialesPlaca"
+                optionLabel="inicial"
+              ></p-dropdown>
+            </div>
+            <div class="p-mb-2 p-ml-5">
+              <p-dropdown
+                placeholder="Compañia"
+                formControlName="idCompaniaAutobus"
+                [options]="companiasDisponibles"
+                optionLabel="nombreCompania"
+              ></p-dropdown>
+            </div>
+          </div>
+          <div class="p-d-flex p-grid">
+            <div class="p-ml-1 p-mr-4 p-col-5 p-sm-12 p-md-5">
+              <p-dropdown
+                placeholder="Estado"
+                formControlName="idEstadoAutobuss"
+                [options]="tipoEstados"
+                optionLabel="estado"
+              ></p-dropdown>
+            </div>
+            <div class="p-d-flex p-flex-column p-ml-5 p-jc-between">
+              <p-checkbox
+          class=""
+          label="Soat"
+          [formControl]="formNewAutobus.controls['soat']"
+          [ngModel]="soat"
+          [binary]="true"
+        ></p-checkbox>
+              <p-checkbox
+          class=""
+          label="Tecnomecanica"
+          [formControl]="formNewAutobus.controls['tecnomecanica']"
+          [ngModel]="tecnomecanica"
+          [binary]="true"
+        ></p-checkbox>
+          </div>
+          </div>
+          <input
+            type="text"
+            class="p-col-4 p-ml-4 p-mt-2 p-mr-6"
+            placeholder="Imagen"
+            formControlName="imagen"
+          />
+          <input
+            pInputText
+            type="text"
+            class="p-col-4 p-ml-5"
+            placeholder="Capacidad maxima"
+            formControlName="capacidadMaxima"
+            pKeyFilter="int"
+          />
+          <div class="p-d-flex p-jc-end p-mt-2">
+            <button
+              pButton
+              type="button"
+              class="p-button-text p-button-rounded p-mr-2"
+              icon="pi pi-times"
+              (click)="elegirFormulario('')"
+            ></button>
+            <button
+              class="p-shadow-4 guardar"
+              pButton
+              label="Guardar"
+              type="button"
+              (click)="newAutobus()"
+            ></button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-6 p-md-6 p-lg-6">
+        <p-autoComplete
+          [(ngModel)]="autobus"
+          [suggestions]="results"
+          (completeMethod)="search($event)"
+          field="placanumero"
+          [dropdown]="true"
+        >
+          <ng-template let-value pTemplate="item">
+            <span style="font-size: 18px"
+              >{{ value?.idInicialPlaca?.inicial }}-{{
+                value?.numericPlaca
+              }}</span
+            >
+          </ng-template>
+        </p-autoComplete>
+      </div>
+      <div class="p-col-6 p-md-2 p-lg-6">
+        <button pButton (click)="showInfoAutobus()">Ver info</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<p-dialog class="p-grid"  [(visible)]="infoAutobus">
+  <ng-template pTemplate="header">
+    <div class="p-d-flex p-ai-center">
+      <h3>{{autobus.placanumero}}</h3>
+      <div class="p-ml-3 p-d-flex p-ai-center">
+          <p-badge styleClass="p-badge-dot p-badge-warning" class="p-shadow-2 p-d-flex p-ai-center p-jc-center" severity={{active}}></p-badge>
+      </div>
+    </div>
+  </ng-template>
+  <div class="p-d-flex">
+    <div class="p-lg-6">
+      <div >
+        <label for="idMiRuta">Id Mi Ruta</label>
+        <input
+          disabled="true"
+          class="form-control p-ml-1 idMiRutaInput"
+          placeholder="{{autobus.idMiRuta}}"
+        />
+      </div>
+      <div>
+        <label for="companiaAutobus">Compañia</label>
+        <input
+          disabled="true"
+          class="companiaInput form-control p-ml-2"
+          placeholder={{autobus.idCompaniaAutobus?.nombreCompania}}
+        />
+      </div>
+      <div>
+        <label for="soat">Soat</label>
+        <input
+          disabled="true"
+          class="soatInput form-control p-ml-2"
+          placeholder={{autobus.soat}}
+        />
+      </div>
+      <div>
+        <label for="tecnomecanica">Tecnomecanica</label>
+        <input
+          disabled="true"
+          class="tecnomecanicaInput form-control p-ml-2"
+          placeholder={{autobus.tecnomecanica}}
+        />
+      </div>
+    </div>
+    <div class="p-lg-6">
+      <img src={{autobus.imagen}} alt="" style="width: 180px;">
+    </div>
+  </div>
+    <div class="p-d-flex p-jc-end p-mt-2" *ngIf="isAdmin">
+      <button
+        class="p-shadow-4"
+        pButton
+        label="Generar Despacho"
+        type="button"
+        (click)="generarNuevoDespacho()"
+      ></button>
+    </div>
+</p-dialog>
+
+<p-dialog 
+header="Nuevo Despacho"
+[(visible)]="openNewDespacho"
+>
+  <app-formulario-despacho [autobus]="autobus"></app-formulario-despacho>
+</p-dialog>

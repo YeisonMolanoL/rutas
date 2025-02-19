@@ -1,0 +1,22 @@
+:host ::ng-deep .p-inputgroup-addon:last-child, .p-inputgroup button:last-child, .p-inputgroup input:last-child, .p-inputgroup > .p-inputwrapper:last-child > .p-component, .p-inputgroup > .p-inputwrapper:last-child > .p-component > .p-inputtext{
+    border-color: coral;
+}
+
+:host ::ng-deep .p-inputgroup-addon{
+    background-color: antiquewhite;
+}
+
+:host ::ng-deep .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover{
+    border-color: antiquewhite;
+    
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight{
+    background-color: coral;
+    border-color: none;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight:hover{
+    background-color: antiquewhite;
+    border-color: antiquewhite;
+}

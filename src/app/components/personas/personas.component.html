@@ -1,0 +1,120 @@
+<app-header [titulo]="'Personas'"></app-header>
+<div class="p-grid">
+  <div class="p-md-4" style="border-style: dashed;">
+    <span>Registro basico de un trabajador</span>
+    <div class="p-d-flex p-jc-center p-mt-3">
+      <p-card header="Nueva Persona">
+        <form action="" [formGroup]="formNewTrabajador">
+          <div class="p-jc-center">
+            <span>
+              <img
+                class="p-mb-0 p-mt-0"
+                style="margin: 80px; height: 80px"
+                [src]="[imagen]"
+                alt=""
+              />
+              <div class="p-d-flex p-jc-center">
+                <label
+                  class="p-as-end"
+                  for="file-upload"
+                  class="p-p-1 custom-file-upload"
+                >
+                  Click para cargar imagen
+                </label>
+                <input
+                  id="file-upload"
+                  type="file"
+                  (change)="onUpload($event)"
+                />
+              </div>
+            </span>
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1 p-mt-3">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-id-card"></i
+            ></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Numero de documento"
+              formControlName="noDocumento"
+            />
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Nombre"
+              formControlName="nombre"
+            />
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Apellido"
+              formControlName="apellido"
+            />
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"><i class="pi pi-at"></i></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Correo electronico"
+              formControlName="correoElectronico"
+            />
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"><i class="pi pi-mobile"></i></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Telefono"
+              formControlName="telefono"
+            />
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-calendar"></i
+            ></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Edad"
+              formControlName="edad"
+            />
+          </div>
+          <div>
+            <p-checkbox [(ngModel)]="isAdmin" [binary]="true" inputId="binary"></p-checkbox>
+          </div>
+        </form>
+        <p-footer>
+          <div class="p-d-flex p-pt-2">
+            <button
+              pButton
+              type="button"
+              label="Crear Persona"
+              (click)="newPersona()"
+              class="p-button-success p-ml-auto"
+            ></button>
+          </div>
+        </p-footer>
+      </p-card>
+    </div>
+  </div>
+  <div class="p-md-4">
+    <div>
+      <h2>Gestion de empleados</h2>
+      
+    </div>
+    <div>
+
+    </div>
+  </div>
+  <div class="p-md-4" style="border-style: dotted">
+    <img src="assets/carga_de_imagenes/fondo-principal.jpg" alt="" />
+  </div>
+</div>

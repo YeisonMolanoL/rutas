@@ -1,0 +1,293 @@
+<app-header [titulo]="titulo"></app-header>
+<!--Interfaz principal de Rutas-->
+<!--Botones primcipales-->
+<div class="p-d-flex p-grid">
+  <div class="p-d-flex p-col-12 p-lg-3 p-md-3 p-sm-12 p-jc-center">
+    <button pButton class="butonPrincipal" label="Nueva Ruta" (click)="activarNuevaRuta()"></button>
+  </div>
+  <div class="p-d-flex p-col-12 p-lg-3 p-md-3 p-sm-12 p-jc-center">
+    <button pButton class="butonPrincipal" label="Ver Rutas" (click)="verRutas()"></button>
+  </div>
+  <div class="p-d-flex p-col-12 p-lg-3 p-md-3 p-sm-12 p-jc-center">
+    <button
+      pButton
+      class="butonPrincipal"
+      label="Ver Paraderos"
+      (click)="verParaderos()"
+    ></button>
+  </div>
+  <div class="p-d-flex p-col-12 p-lg-3 p-md-3 p-sm-12 p-jc-center">
+    <button id="myboton" pButton class="butonPrincipal" label="Trayectos" (click)="verTrayectos()"></button>
+  </div>
+</div>
+<!--Panel secundario-->
+<div class="p-grid p-d-flex">
+  <div class="p-col-12 p-md-6 p-sm-12">
+    <app-map
+      [zoom]="14"
+      [width]="width"
+      [height]="height"
+      [overlays]="overlaysGeneral"
+    ></app-map>
+  </div>
+  <div class="p-col-12 p-md-6 p-sm-12" *ngIf="nuevaRuta">
+    <h1 class="p-col-12">Nueva Ruta</h1>
+    <hr />
+    <form action="" [formGroup]="formNuevaRuta" class="p-grid">
+      <div class="p-col-12 p-sm-12 p-md-6 p-lg-3 p-as-center">
+        <label>Seleccionar Tratecto</label>
+      </div>
+      <div class="p-col-12 p-md-6 p-lg-6">
+        <p-dropdown
+          placeholder="Seleccionar..."
+          formControlName="idTrayecto"
+          [options]="trayectos"
+          optionLabel="trayectoCompleto"
+          class="p-mr-5"
+          [style]="{ width: '100%' }"
+        ></p-dropdown>
+      </div>
+      <div class="p-col-12 p-md-6 p-lg-6">
+        <input
+          type="text"
+          class="form-control"
+          maxlength="30"
+          formControlName="idRuta"
+          placeholder="Id de la Ruta"
+          pInputText
+        />
+      </div>
+      <div class="p-col-12 p-md-6 p-lg-6">
+        <input
+          type="text"
+          class="form-control"
+          maxlength="30"
+          formControlName="frecuencia"
+          placeholder="Frecuencia de salida"
+          pInputText
+        />
+      </div>
+    </form>
+    <div class="p-md-12">
+      <p-dataView [value]="paraderos">
+        <ng-template pTemplate="header">Paraderos por los que cruza la ruta</ng-template>
+        <ng-template let-paradero pTemplate="listItem">
+            <div class="p-md-3">
+              <p-checkbox label="{{paradero.nombreParadero}}" (click)="aniadirParadero(paradero)" value="binary"></p-checkbox>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <div class="p-grid p-jc-end">
+            <button
+          pButton
+          type="button"
+          class="p-button-text p-button-rounded p-mr-2"
+          icon="pi pi-times"
+          (click)="activarNuevaRuta()"
+        ></button>
+        <button
+          class="p-shadow-4"
+          pButton
+          label="Guardar"
+          type="button"
+          (click)="newRuta()"
+        ></button>
+          </div>
+        </ng-template>
+    </p-dataView>
+    </div>
+  </div>
+</div>
+
+<!--Dialog que me muestra todos los paraderos-->
+<p-dialog
+  [(visible)]="pDialog"
+  header="Paraderos"
+  [style]="{ width: '48rem', minWidth: '35rem', height: '500px' }"
+>
+  <ng-template pTemplate="body">
+    <app-table-view
+    [paraderos]="paraderos"
+    [cruces]="cruces"
+    [width]="width1"
+    [heigth]="heigth1"
+    [zoom]="12"
+    [selector]="'paraderos'">
+    </app-table-view>
+  </ng-template>
+  <p-footer>
+    <button
+      pButton
+      label="Nuevo Paradero"
+      (click)="opcionNuevoParadero()"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+
+<!--Dialogo que me muestra todas las rutas-->
+<p-dialog
+  [(visible)]="dialogRutas"
+  header="Rutas"
+  [style]="{width: '50vw'}"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+>
+  <ng-template pTemplate="body">
+    <app-table-view
+    [rutas]="rutasDisponibles"
+    [cruces]="cruces"
+    [width]="width1"
+    [heigth]="heigth1"
+    [zoom]="12"
+    [selector]="'rutas'"
+    >
+    </app-table-view>
+  </ng-template>
+  <p-footer>
+    <button
+      pButton
+      label="Nueva Ruta"
+      (click)="activarNuevaRuta()"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+<!--Dialog para crear un nuevo paradero-->
+<p-dialog
+  [(visible)]="nuevoParadero"
+  header="Nuevo Paradero"
+  [style]="{ width: '40rem' }"
+>
+  <ng-template pTemplate="body" class="p-grid">
+    <div class="p-d-flex">
+      <div class="p-lg-4 p-md-6 p-sm-12">
+        <form action="" [formGroup]="formNuevoParadero">
+          <input
+            type="text"
+            pInputText
+            formControlName="nombreParadero"
+            placeholder="Nombre Paradero"
+          />
+          <input
+            type="text"
+            pInputText
+            formControlName="barrio"
+            placeholder="Barrio"
+          />
+          <input
+            type="text"
+            pInputText
+            formControlName="direccion"
+            placeholder="Dirección"
+            [disabled]="true"
+          />
+          <input
+            type="text"
+            pInputText
+            [placeholder]="latitud"
+            [disabled]="true"
+          />
+          <input
+            type="text"
+            pInputText
+            [placeholder]="longitud"
+            [disabled]="true"
+          />
+        </form>
+        <div class="p-mt-2">
+          <button
+            pButton
+            label="Editar posición"
+            class="p-button-sm"
+            (click)="editUbicacionNewParadero()"
+          ></button>
+        </div>
+      </div>
+      <div class="p-lg-8 p-md-6 p-sm-12">
+        <app-map
+          [overlays]="overlaysNewParadero"
+          (latitud)="receiveLatitud($event)"
+          (longitud)="receiveLongitud($event)"
+          [width]="width2"
+          [height]="height2"
+          [zoom]="12"
+        ></app-map>
+      </div>
+    </div>
+  </ng-template>
+  <p-footer>
+    <button
+      pButton
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="newParadero()"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+<!--Dialog Nuevo Trayecto-->
+<p-dialog
+  [(visible)]="nuevoTrayecto"
+  header="Nuevo Trayecto"
+  [style]="{ width: '40rem' }"
+>
+  <ng-template pTemplate="body" class="p-grid">
+    <div class="p-d-flex">
+      <div class="p-lg-4 p-md-6 p-sm-12">
+        <form action="" [formGroup]="formNuevoTrayecto">
+          <input
+            type="text"
+            pInputText
+            formControlName="inicio"
+            placeholder="Inicio Tratecto"
+          />
+          <input
+            type="text"
+            pInputText
+            formControlName="medio"
+            placeholder="Mitad Trayecto"
+          />
+          <input
+            type="text"
+            pInputText
+            formControlName="fin"
+            placeholder="Fin Trayecto"
+          />
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  <p-footer>
+    <button
+      pButton
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="newTrayecto()"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+<!--Dialog para ver los Trayecto que existen en la BD-->
+<p-dialog
+  [(visible)]="dialogTrayectos"
+  header="Trayectos"
+  [style]="{ width: '48rem', minWidth: '35rem', height: '500px' }"
+>
+  <ng-template pTemplate="body">
+    <app-table-view
+    [trayectos]="trayectos"
+    [selector]="'trayectos'"
+    >
+    </app-table-view>
+  </ng-template>
+  <p-footer>
+    <button
+      pButton
+      label="Nuevo Trayecto"
+      (click)="opcionNuevoTrayecto()"
+    ></button>
+  </p-footer>
+</p-dialog>
+
+<!--Llamado necesario para que los mensajes funcionan-->
+<p-toast></p-toast>

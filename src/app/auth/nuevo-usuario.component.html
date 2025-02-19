@@ -1,0 +1,62 @@
+<app-header></app-header>
+<div>
+    <span>Registro basico de un trabajador</span>
+    <div class="p-d-flex p-jc-center p-mt-3">
+      <p-card header="Nueva Persona">
+        <form action="" [formGroup]="formNewUsuario">
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Nombre"
+              formControlName="nombre"
+            />
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Apellido"
+              formControlName="nombreUsuario"
+            />
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"><i class="pi pi-at"></i></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Correo electronico"
+              formControlName="email"
+            />
+          </div>
+          <div class="p-inputgroup p-jc-center p-p-1">
+            <span class="p-inputgroup-addon"
+              ><i class="pi pi-calendar"></i
+            ></span>
+            <input
+              type="text"
+              pInputText
+              placeholder="Edad"
+              formControlName="password"
+            />
+          </div>
+        </form>
+        <div class="p-p-2">
+            <p-checkbox [(ngModel)]="isAdmin" [binary]="true" inputId="binary" label="Marcar con privilegios de administrador"></p-checkbox>
+        </div>
+        <p-footer>
+          <div class="p-d-flex p-pt-2">
+            <button
+              pButton
+              type="button"
+              label="Crear Persona"
+              (click)="nuevoUsuario()"
+              class="p-button-success p-ml-auto"
+            ></button>
+          </div>
+        </p-footer>
+      </p-card>
+    </div>
+  </div>

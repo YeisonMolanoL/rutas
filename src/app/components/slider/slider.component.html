@@ -1,0 +1,14 @@
+<div class="p-grid">
+  <div class="p-col-12 p-text-center">
+    <p-carousel
+      [value]="autobuses"
+      [autoplayInterval]="4000"
+      [circular]="true"
+      verticalViewPortHeight="10px"
+    >
+      <ng-template let-autobus pTemplate="item">
+        <img src="{{ autobus.imagen }}" class="carousel" />
+      </ng-template>
+    </p-carousel>
+  </div>
+</div>

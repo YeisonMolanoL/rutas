@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div class="p-d-flex p-jc-center">
+<form action="" [formGroup]="loginForm">
+  <div class="p-card p-p-3">
+    <div class="p-inputgroup p-m-2">
+    <span class="p-inputgroup-addon">
+      <i class="pi pi-user"></i>
+    </span>
+    <input pInputText formControlName="nombreUsuario" placeholder="Nombre de Usuario" />
+  </div>
+  <div class="p-inputgroup p-m-2">
+    <span class="p-inputgroup-addon">
+      <i class="pi pi-key"></i>
+    </span>
+    <input pInputText formControlName="password" placeholder="Contraseña" />
+  </div>
+  <div class="p-mt-6 p-d-flex p-jc-end">
+    <p-button label="Acceder" icon="pi pi-check" (onClick)="login()"></p-button>
+  </div>
+  </div>
+  
+</form>
+</div>

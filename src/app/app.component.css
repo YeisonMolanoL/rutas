@@ -1,0 +1,11 @@
+@media screen and (max-width: 748px) {
+  :host ::ng-deep h1 {
+    font-size: 18px !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  :host ::ng-deep h1 {
+    font-size: 14px !important;
+  }
+}

@@ -1,0 +1,47 @@
+h5{
+    display: inline-flex;
+}
+
+.principal{
+    width: auto;
+}
+
+.form{
+    margin-top: 2rem;
+}
+
+.tamano{
+    width: 2rem;
+}
+
+.guardar{
+    width: 100px;
+}
+
+.companiaInput{
+    width: 100px;
+}
+
+.idMiRutaInput{
+    width: 100px;
+}
+
+.tecnomecanicaInput{
+    width: 60px;
+}
+
+.soatInput{
+    width: 60px;
+}
+
+:host ::ng-deep .p-button{
+    background-color: rgb(254, 86, 24);
+    border: none;
+    border-radius: 12px;
+}
+
+:host ::ng-deep .p-button:hover{
+    background-color: rgb(196, 54, 2);
+    border: none;
+    border-radius: 12px;
+}

@@ -1,0 +1,43 @@
+<header>
+  <div>
+    <nav style="border-bottom: 1rem; border-color: black;">
+      <a href="http://localhost:4200">
+        <img src="./assets/images/logo-mi-ruta.jpg" class="logo" />
+      </a>
+      <ul class="enlaces-menu">
+        <li><a href="http://localhost:4200/autobus">Autobuses</a></li>
+        <li><a href="http://localhost:4200/rutas">Rutas</a></li>
+        <li><a href="http://localhost:4200/personas">Personas</a></li>
+        <li><a href="#">Global</a></li>
+        <li>
+          <div *ngIf="isLoged; else logIn">
+            <button
+          pButton
+          type="button"
+          icon="pi pi-sign-out"
+          class="p-button-rounded p-button-text log-out"
+          (click)="logOut()"
+        ></button>
+          </div>
+        <ng-template #logIn>
+            <button
+          pButton
+          (click)="logged()"
+          type="button"
+          icon="pi pi-sign-in"
+          class="p-button-rounded p-button-text log-out"
+        ></button>
+        </ng-template>
+      </li>
+      </ul>
+      <button class="ham" type="button" (click)="prueba()">
+        <span class="br-1"></span>
+        <span class="br-2"></span>
+        <span class="br-3"></span>
+      </button>
+    </nav>
+    <div >
+      <h1 style="padding: 0px; margin: 0px;">{{ titulo }}</h1>
+    </div>
+  </div>
+</header>

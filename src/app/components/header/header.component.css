@@ -1,0 +1,152 @@
+h1{
+    text-align: center;
+}
+
+.header{
+    display: flex; 
+    align-items: center;
+    margin: -1rem;
+}
+
+.right{
+    display: inline-flex;
+    align-items: flex-end;
+}
+
+.logo{
+    width: 80px;
+    height: 80px;
+    padding-top: 5px;
+}
+
+.title{
+    display: inline-flex;
+    width: 535px;
+    margin-left: 310px;
+}
+
+.log-out{
+    font-size: 2rem;
+}
+.logo1{
+    margin: auto;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 8vh;
+    background-color: coral;
+}
+
+.ham{
+    display: none;
+    cursor: pointer;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    transition: 0.2s 0.1s;
+}
+
+.ham:hover{
+    transform: rotate(365deg);
+}
+
+.ham span{
+    display: block;
+    background-color: turquoise;
+    height: 3px;
+    width: 28px;
+    margin: 10px auto;
+    border-radius: 2px;
+}
+
+.enlaces-menu{
+    display: flex;
+    padding: 0;
+}
+
+.enlaces-menu li{
+    padding: 0 40px;
+    list-style-type: none;
+    transition: 0.5s;
+}
+
+.enlaces-menu li a{
+    text-decoration: none;
+    font-size: 1.8rem;
+    color: #f3f3f3;
+    font-weight: 600;
+    padding: 3px;
+}
+
+.enlaces-menu li :hover{
+    background-color: rgb(253, 1, 1);
+}
+
+/*DISPOSITIVOS MOVILES*/
+@media(max-width: 768px){
+    body{
+        overflow: hidden;
+    }
+
+    .logo{
+        width: 50px;
+        height: 40px;
+        padding-left: 10px;
+    }
+
+    nav{
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .ham{
+        display: block;
+        position: absolute;
+        right: 14px;
+    }
+
+    .enlaces-menu{
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 92vh;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        display: none;
+        opacity: 0;
+    }
+
+    .enlaces-menu li{
+        width: 100%;
+        text-align: center;
+        padding: 20px;
+    }
+
+    @keyframes muestraMenu {
+        from{opacity: 0;}
+        to{opacity: 1;}
+    }
+    .enlaces-menu.activado{
+        display: flex;
+        animation: muestraMenu 400ms ease-in-out both;
+    }
+
+    .br-1.animado{
+        transform: rotate(-45deg) translate(-10px, 8px);
+    }
+
+    .br-2.animado{
+        opacity: 0;
+    }
+
+    .br-3.animado{
+        transform: rotate(45deg) translate(-10px, -8px);
+    }
+}
